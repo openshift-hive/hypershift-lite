@@ -1,0 +1,8 @@
+apiVersion: hypershiftlite.openshift.io/v1alpha1
+kind: KubernetesService
+metadata:
+  name: myk8s
+spec:
+  releaseImage: quay.io/openshift-release-dev/ocp-release:4.7.5-x86_64
+  pullSecret:
+    name: pull-secret
