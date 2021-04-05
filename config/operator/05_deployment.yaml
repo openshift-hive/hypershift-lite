@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: operator
+  namespace: hypershift-lite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: operator
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: operator
+    spec:
+      containers:
+      - command:
+        - /usr/bin/hypershift-lite
+        image: quay.io/hypershift/hypershift-lite:latest
+        imagePullPolicy: Always
+        name: operator
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      serviceAccountName: operator
